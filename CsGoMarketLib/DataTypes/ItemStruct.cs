@@ -7,13 +7,14 @@ namespace CsGoMarketLib.DataTypes
 {
     public class ItemStruct : INotifyPropertyChanged
     {
-        private int currCost;
+
         private SalesEnum salesType;
         private bool status;
         private int normCost;
         private int minCost;
-        private string classid_instanceid;
-        private string name;
+        private int currCost;
+        private string classid_instanceid = string.Empty;
+        private string name = string.Empty;
 
         public int MinCost
         {

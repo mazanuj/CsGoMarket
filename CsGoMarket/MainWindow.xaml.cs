@@ -15,19 +15,19 @@ namespace CsGoMarket
     {
         public MainWindow()
         {
-            DataContext = this;
-            InitializeComponent();
-
             //Deserialize MenuCollection
             try
             {
                 using (var fs = new FileStream("ItemsCollection.xml", FileMode.OpenOrCreate))
                     Utils.ItemsCollection =
-                        ((ItemsCollection) new XmlSerializer(typeof (ItemsCollection)).Deserialize(fs)).ItemsList;
+                        ((ItemsCollection)new XmlSerializer(typeof(ItemsCollection)).Deserialize(fs)).ItemsList;
             }
             catch (Exception)
             {
             }
+
+            DataContext = this;
+            InitializeComponent();            
         }
 
         private void LaunchCsGoMarketOnGitHub(object sender, RoutedEventArgs e)

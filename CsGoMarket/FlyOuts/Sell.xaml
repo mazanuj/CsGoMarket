@@ -12,42 +12,24 @@
              d:DesignHeight="700" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+        <converters:IntToRublConverter x:Key="IntToRublConverter"/>
     </UserControl.Resources>
     <Controls:MetroContentControl>
         <DataGrid HorizontalAlignment="Left"
-					  x:Name="DataGrid"
-                      RenderOptions.ClearTypeHint="Enabled"
-                      TextOptions.TextFormattingMode="Display"					  
-                      Margin="0,30,0,10" 
-					  FontSize="14"					  
-					  FontWeight="Black"
-                      AutoGenerateColumns="False"
-					  Style="{DynamicResource AzureDataGrid}"					  
-					  ItemsSource="{Binding Path=ObservableItems}">
+				  x:Name="DataGrid"
+                  RenderOptions.ClearTypeHint="Enabled"
+                  TextOptions.TextFormattingMode="Display"					  
+				  FontSize="14"			
+				  FontWeight="Black"
+                  AutoGenerateColumns="False"
+                  RowEditEnding="DataGrid_OnAddingNewItem"
+				  Style="{DynamicResource AzureDataGrid}" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Classid_Instanceid" Binding="{Binding Classid_instanceid}"/>
-                <DataGridTextColumn Header="Минимальная цена" Binding="{Binding MinCost}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Нормальная цена" Binding="{Binding NormCost}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Текущая цена" Binding="{Binding CurrCost}" IsReadOnly="True">
-                    <DataGridTextColumn.CellStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Минимальная цена" Binding="{Binding MinCost, Converter={StaticResource IntToRublConverter}}"/>
+                <DataGridTextColumn Header="Нормальная цена" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}"/>
+                <DataGridTextColumn Header="Текущая цена" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
                 <DataGridTemplateColumn Header="Статус">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

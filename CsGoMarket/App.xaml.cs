@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
 using CsGoMarket.Properties;
@@ -17,6 +18,10 @@ namespace CsGoMarket
             //Serialized ItemsCollection
             if (File.Exists("ItemsCollection.xml"))
                 File.Delete("ItemsCollection.xml");
+
+            Utils.ItemsCollection = new List<ItemStruct>();
+            Utils.ItemsCollection.AddRange(Utils.SellCollection);
+            Utils.ItemsCollection.AddRange(Utils.BuyCollection);
 
             var mi = new ItemsCollection {ItemsList = Utils.ItemsCollection};
             using (var fs = new FileStream("ItemsCollection.xml", FileMode.OpenOrCreate))
