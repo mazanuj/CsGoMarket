@@ -9,11 +9,51 @@ namespace CsGoMarketLib.DataTypes
     {
         private int currCost;
         private SalesEnum salesType;
+        private bool status;
+        private int normCost;
+        private int minCost;
+        private string classid_instanceid;
+        private string name;
 
-        public string Name { get; set; }
-        public string Classid_instanceid { get; set; }
-        public int MinCost { get; set; }
-        public int NormCost { get; set; }
+        public int MinCost
+        {
+            get { return minCost; }
+            set
+            {
+                minCost = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Classid_instanceid
+        {
+            get { return classid_instanceid; }
+            set
+            {
+                classid_instanceid = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int NormCost
+        {
+            get { return normCost; }
+            set
+            {
+                normCost = value;
+                OnPropertyChanged();
+            }
+        }
 
         public int CurrCost
         {
@@ -31,6 +71,16 @@ namespace CsGoMarketLib.DataTypes
             set
             {
                 salesType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool Status
+        {
+            get { return status; }
+            set
+            {
+                status = value;
                 OnPropertyChanged();
             }
         }

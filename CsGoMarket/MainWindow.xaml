@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance local:MainWindow}"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="700" Width="800">
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <Button Click="LaunchCsGoMarketOnGitHub"

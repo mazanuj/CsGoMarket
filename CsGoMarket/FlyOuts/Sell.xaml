@@ -5,10 +5,61 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CsGoMarket.FlyOuts"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converters="clr-namespace:CsGoMarket.Converters"
+             xmlns:dataTypes="clr-namespace:CsGoMarketLib.DataTypes;assembly=CsGoMarketLib"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:Sell}"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="700" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </UserControl.Resources>
     <Controls:MetroContentControl>
-        
+        <DataGrid HorizontalAlignment="Left"
+					  x:Name="DataGrid"
+                      RenderOptions.ClearTypeHint="Enabled"
+                      TextOptions.TextFormattingMode="Display"					  
+                      Margin="0,30,0,10" 
+					  FontSize="14"					  
+					  FontWeight="Black"
+                      AutoGenerateColumns="False"
+					  Style="{DynamicResource AzureDataGrid}"					  
+					  ItemsSource="{Binding Path=ObservableItems}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Classid_Instanceid" Binding="{Binding Classid_instanceid}"/>
+                <DataGridTextColumn Header="Минимальная цена" Binding="{Binding MinCost}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Нормальная цена" Binding="{Binding NormCost}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Текущая цена" Binding="{Binding CurrCost}" IsReadOnly="True">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Статус">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Rectangle Width="15" Height="15" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">
+                                <Rectangle.Fill>
+                                    <SolidColorBrush Color="{Binding Status, Converter={StaticResource BoolToColorConverter}}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Controls:MetroContentControl>
 </UserControl>
