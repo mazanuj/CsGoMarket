@@ -9,13 +9,6 @@ namespace CsGoMarketLib.Utilities
         public delegate void InformMethodStr(string str);
 
         public static event InformMethodStr OnResultStr;
-        public static event InformMethodInt OnQueueChanged;
-
-        public static void RaiseOnQueueChanged(int result)
-        {
-            var handler = OnQueueChanged;
-            handler?.Invoke(result);
-        }
 
         public static void RaiseOnResultReceived(string str)
         {

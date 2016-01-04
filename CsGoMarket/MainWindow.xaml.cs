@@ -34,5 +34,9 @@ namespace CsGoMarket
         {
             Process.Start("https://github.com/mazanuj/CsGoMarket");
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

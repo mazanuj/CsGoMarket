@@ -43,12 +43,13 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="API secret:" Grid.Column="0" FontWeight="Black" FontSize="14"/>
                 <TextBox Width="300" Grid.Column="1" FontWeight="Black" FontSize="14" Margin="5,0,100,0" Text="{Binding Source={x:Static properties:Settings.Default}, Path=ApiSecret}"/>
-                <Button Content="Start" Grid.Column="2" FontWeight="Black" FontSize="14" Width="100" Margin="0,0,30,0"/>
+                <Button Content="Start" Grid.Column="2" FontWeight="Black" FontSize="14" Width="100" Margin="0,0,30,0" Click="ButtonBase_OnClick"/>
                 <Button Content="Stop" Grid.Column="3" FontWeight="Black" Width="100" FontSize="14"/>
             </Grid>
             <Controls:MetroAnimatedSingleRowTabControl Grid.Row="1">
                 <TabItem Header="Buy"><FlyOuts:Buy DataContext="{Binding}"/></TabItem>
                 <TabItem Header="Sell"><FlyOuts:Sell DataContext="{Binding}"/></TabItem>
+                <TabItem Header="Log"><FlyOuts:Log DataContext="{Binding}"/></TabItem>
             </Controls:MetroAnimatedSingleRowTabControl>
             <StatusBar Grid.Row="2">
                 <StatusBar.Resources>

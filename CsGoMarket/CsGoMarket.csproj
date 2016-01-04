@@ -67,6 +67,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FlyOuts\Log.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="FlyOuts\Sell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -83,6 +87,9 @@
     <Compile Include="Converters\IntToRublConverter.cs" />
     <Compile Include="FlyOuts\Buy.xaml.cs">
       <DependentUpon>Buy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FlyOuts\Log.xaml.cs">
+      <DependentUpon>Log.xaml</DependentUpon>
     </Compile>
     <Compile Include="FlyOuts\Sell.xaml.cs">
       <DependentUpon>Sell.xaml</DependentUpon>
