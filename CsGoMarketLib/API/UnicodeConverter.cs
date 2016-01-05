@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
@@ -24,8 +25,18 @@ namespace CsGoMarketLib.API
                 var asciiChars = new char[ascii.GetCharCount(asciiBytes, 0, asciiBytes.Length)];
                 ascii.GetChars(asciiBytes, 0, asciiBytes.Length, asciiChars, 0);
                 var asciiString = new string(asciiChars);
+                //asciiString = asciiString.Replace("\"", "'");
 
-                dynamic json = JObject.Parse(asciiString);
+                dynamic json;
+                try
+                {
+                    json = JObject.Parse(asciiString);
+                }
+                catch (Exception)
+                {
+                    json = JArray.Parse(asciiString);
+                }
+                
                 return json;
             });
         }

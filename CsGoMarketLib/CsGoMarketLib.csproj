@@ -38,6 +38,8 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,9 +52,13 @@
   <ItemGroup>
     <Compile Include="API\AutoUpdate.cs" />
     <Compile Include="API\DownloadChart.cs" />
+    <Compile Include="API\SellerList.cs" />
+    <Compile Include="API\SetPrice.cs" />
+    <Compile Include="API\SetUid.cs" />
     <Compile Include="API\UnicodeConverter.cs" />
     <Compile Include="DataTypes\ItemsCollection.cs" />
     <Compile Include="DataTypes\ItemStruct.cs" />
+    <Compile Include="DataTypes\SellItem.cs" />
     <Compile Include="Enums\SalesEnum.cs" />
     <Compile Include="MainCycle.cs" />
     <Compile Include="Properties\Annotations.cs" />

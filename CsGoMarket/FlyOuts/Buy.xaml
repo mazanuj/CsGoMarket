@@ -27,7 +27,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Classid_Instanceid" Binding="{Binding Classid_instanceid}"/>
-                <DataGridTextColumn Header="Максимальная цена" Binding="{Binding MinCost, Converter={StaticResource IntToRublConverter}}"/>
+                <DataGridTextColumn Header="Максимальная цена" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>
                 <DataGridTextColumn Header="Нормальная цена" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}"/>
                 <DataGridTextColumn Header="Текущая цена" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
                 <DataGridTemplateColumn Header="Статус">

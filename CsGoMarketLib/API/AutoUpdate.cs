@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using CsGoMarketLib.Utilities;
 
@@ -10,7 +9,8 @@ namespace CsGoMarketLib.API
     {
         public static async Task Update(string key)
         {
-            var unicodeString = await new WebClient().DownloadStringTaskAsync($"https://market.csgo.com/api/PingPong/?key={key}");
+            var unicodeString =
+                await new WebClient().DownloadStringTaskAsync($"https://market.csgo.com/api/PingPong/?key={key}");
             var resp = await UnicodeConverter.Convert(unicodeString);
 
             Informer.RaiseOnResultReceived(
