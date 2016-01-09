@@ -10,7 +10,7 @@ namespace CsGoMarket.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool) value ? Colors.LimeGreen : Colors.Red;
+            return (bool) value ? Colors.Yellow : Colors.Red;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

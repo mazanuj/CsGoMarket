@@ -7,7 +7,7 @@
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:Log}"
-             d:DesignHeight="700" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="1200">
     <Controls:MetroContentControl>
         <DataGrid HorizontalAlignment="Left"
 				  x:Name="DataGrid"

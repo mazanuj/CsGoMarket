@@ -13,6 +13,7 @@ namespace CsGoMarketLib.Utilities
             BuyCollection = new ObservableCollection<ItemStruct>();
         }
 
+        public static bool IsPermit { get; set; }
         public static string SecretKey { get; set; }
         public static List<ItemStruct> ItemsCollection { get; set; }
         public static ObservableCollection<ItemStruct> SellCollection { get; set; }

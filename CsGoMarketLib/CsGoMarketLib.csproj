@@ -52,15 +52,15 @@
   <ItemGroup>
     <Compile Include="API\AutoUpdate.cs" />
     <Compile Include="API\DownloadChart.cs" />
+    <Compile Include="API\GetItemPrice.cs" />
     <Compile Include="API\SellerList.cs" />
     <Compile Include="API\SetPrice.cs" />
-    <Compile Include="API\SetUid.cs" />
     <Compile Include="API\UnicodeConverter.cs" />
     <Compile Include="DataTypes\ItemsCollection.cs" />
     <Compile Include="DataTypes\ItemStruct.cs" />
     <Compile Include="DataTypes\SellItem.cs" />
     <Compile Include="Enums\SalesEnum.cs" />
-    <Compile Include="MainCycle.cs" />
+    <Compile Include="Sell\SellCycle.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Informer.cs" />

@@ -30,7 +30,8 @@ namespace CsGoMarket.FlyOuts
                 if (e.EditAction == DataGridEditAction.Commit)
                 {
                     var newItem = e.Row.DataContext as ItemStruct;
-                    newItem.SalesType = SalesEnum.Sell;
+                    if (newItem != null)
+                        newItem.SalesType = SalesEnum.Sell;
                 }
             }
             catch (Exception)

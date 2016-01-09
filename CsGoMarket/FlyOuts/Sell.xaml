@@ -9,7 +9,7 @@
              xmlns:dataTypes="clr-namespace:CsGoMarketLib.DataTypes;assembly=CsGoMarketLib"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance local:Sell}"
-             d:DesignHeight="700" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="1200">
     <UserControl.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
         <converters:IntToRublConverter x:Key="IntToRublConverter"/>
@@ -25,13 +25,16 @@
                   RowEditEnding="DataGrid_OnAddingNewItem"
 				  Style="{DynamicResource AzureDataGrid}" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Classid" Binding="{Binding Classid}"/>
                 <DataGridTextColumn Header="Instanceid" Binding="{Binding Instanceid}"/>
-                <DataGridTextColumn Header="Минимальная цена" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>
-                <DataGridTextColumn Header="Нормальная цена" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}"/>
-                <DataGridTextColumn Header="Текущая цена" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Статус">
+                <DataGridTextColumn Header="Uid" Binding="{Binding Uid}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Current price" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Min price" Binding="{Binding Min_price, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Limit price" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>
+                <DataGridTextColumn Header="Normal price" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}"/>
+                <DataGridTemplateColumn Header="Status">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Rectangle Width="15" Height="15" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">

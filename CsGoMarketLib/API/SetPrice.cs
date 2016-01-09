@@ -7,16 +7,15 @@ namespace CsGoMarketLib.API
 {
     public static class SetPrice
     {
-        public static async Task Set(string key)
+        public static async Task Set(string key, string uid, int price)
         {
             try
             {
                 var unicodeString =
-                    await new WebClient().DownloadStringTaskAsync($"https://market.csgo.com/api/Trades/?key={key}");
+                    await
+                        new WebClient().DownloadStringTaskAsync(
+                            $"https://market.csgo.com/api/SetPrice/{uid}/{price}/?key={key}");
                 var resp = await UnicodeConverter.Convert(unicodeString);
-
-                Informer.RaiseOnResultReceived(
-                    $"Error: {resp.error}\r\nDescription: {resp.description}\r\nSuccess: {resp.success}\r\n{new string('=', 70)}{DateTime.Now.ToString("T")}");
             }
             catch (Exception ex)
             {

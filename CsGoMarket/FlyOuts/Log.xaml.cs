@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using CsGoMarketLib.Utilities;
 
 namespace CsGoMarket.FlyOuts
@@ -12,12 +14,15 @@ namespace CsGoMarket.FlyOuts
 
         public Log()
         {
-            Informer.OnResultStr += result => { ObservableCollection.Add(result); };
-
             DataContext = this;
             InitializeComponent();
             DataGrid.IsSynchronizedWithCurrentItem = true;
             DataGrid.ItemsSource = ObservableCollection;
+
+            Informer.OnResultStr += result =>
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => ObservableCollection.Add(result))).Wait();
+            };
         }
     }
 }
