@@ -21,7 +21,8 @@ namespace CsGoMarket.FlyOuts
 
             Informer.OnResultStr += result =>
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => ObservableCollection.Add(result))).Wait();
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => ObservableCollection.Insert(0, result)))
+                    .Wait();
             };
         }
     }

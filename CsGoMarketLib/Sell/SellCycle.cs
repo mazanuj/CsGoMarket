@@ -17,7 +17,7 @@ namespace CsGoMarketLib.Sell
                     if (!Utils.IsPermit) return;
 
                     var num = y.Position == 1 ? 1 : 0;
-                    var prices = await GetItemPrice.Get(y.Classid, y.Instanceid, Utils.SecretKey);
+                    var prices = await GetItemPrice.GetOffers(y.Classid, y.Instanceid, Utils.SecretKey);
 
                     if (prices.Count == 1)
                     {

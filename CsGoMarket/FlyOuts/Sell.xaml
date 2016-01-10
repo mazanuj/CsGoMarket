@@ -11,8 +11,8 @@
              d:DataContext="{d:DesignInstance local:Sell}"
              d:DesignHeight="700" d:DesignWidth="1200">
     <UserControl.Resources>
-        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
         <converters:IntToRublConverter x:Key="IntToRublConverter"/>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
     </UserControl.Resources>
     <Controls:MetroContentControl>
         <DataGrid HorizontalAlignment="Left"
@@ -34,14 +34,10 @@
                 <DataGridTextColumn Header="Min price" Binding="{Binding Min_price, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Limit price" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>
                 <DataGridTextColumn Header="Normal price" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}"/>
-                <DataGridTemplateColumn Header="Status">
+                <DataGridTemplateColumn Header="Status" CanUserSort="True" SortMemberPath="Status">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Rectangle Width="15" Height="15" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding Status, Converter={StaticResource BoolToColorConverter}}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
+                            <Rectangle Width="15" Height="15" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}"  Fill="{Binding Status, Converter={StaticResource BoolToColorConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

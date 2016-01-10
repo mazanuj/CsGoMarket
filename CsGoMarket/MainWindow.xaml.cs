@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Serialization;
 using CsGoMarketLib.API;
+using CsGoMarketLib.Buy;
 using CsGoMarketLib.DataTypes;
-using CsGoMarketLib.Sell;
 using CsGoMarketLib.Utilities;
 
 namespace CsGoMarket
@@ -63,13 +63,15 @@ namespace CsGoMarket
             {
                 while (Utils.IsPermit)
                 {
-                    await SellCycle.ChangeSellItemPrice();
-                    await SellerList.Get(Utils.SecretKey);
+                    //await SellCycle.ChangeSellItemPrice();
+                    //await SellerList.GetOffers(Utils.SecretKey);
+
+                    await BuyCycle.ChangeBuyItemPrice();
                 }
             }
             catch (Exception ex)
             {
-              Informer.RaiseOnResultReceived(ex);
+                Informer.RaiseOnResultReceived(ex);
             }
             ButtonStart.IsEnabled = true;
             ButtonStop.IsEnabled = false;
@@ -93,7 +95,9 @@ namespace CsGoMarket
             {
                 await AutoUpdate.Update(Utils.SecretKey);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
             await SellerList.Get(Utils.SecretKey);
         }
 
@@ -106,6 +110,7 @@ namespace CsGoMarket
         private async void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
             await SellerList.Get(Utils.SecretKey);
+            await GetItemInfo.Get(Utils.SecretKey);
         }
     }
 }

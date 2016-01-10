@@ -42,20 +42,26 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AutoUpdate.cs" />
     <Compile Include="API\DownloadChart.cs" />
+    <Compile Include="API\GetItemInfo.cs" />
     <Compile Include="API\GetItemPrice.cs" />
+    <Compile Include="API\InsertOrder.cs" />
     <Compile Include="API\SellerList.cs" />
     <Compile Include="API\SetPrice.cs" />
     <Compile Include="API\UnicodeConverter.cs" />
+    <Compile Include="API\UpdateOrder.cs" />
+    <Compile Include="Buy\BuyCycle.cs" />
     <Compile Include="DataTypes\ItemsCollection.cs" />
     <Compile Include="DataTypes\ItemStruct.cs" />
     <Compile Include="DataTypes\SellItem.cs" />

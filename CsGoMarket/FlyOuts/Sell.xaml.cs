@@ -27,12 +27,11 @@ namespace CsGoMarket.FlyOuts
         {
             try
             {
-                if (e.EditAction == DataGridEditAction.Commit)
-                {
-                    var newItem = e.Row.DataContext as ItemStruct;
-                    if (newItem != null)
-                        newItem.SalesType = SalesEnum.Sell;
-                }
+                if (e.EditAction != DataGridEditAction.Commit) return;
+
+                var newItem = e.Row.DataContext as ItemStruct;
+                if (newItem != null)
+                    newItem.SalesType = SalesEnum.Sell;
             }
             catch (Exception)
             {

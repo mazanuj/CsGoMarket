@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Shapes;
+using CsGoMarketLib.API;
 using CsGoMarketLib.DataTypes;
 using CsGoMarketLib.Enums;
 using CsGoMarketLib.Utilities;
@@ -27,15 +30,46 @@ namespace CsGoMarket.FlyOuts
         {
             try
             {
-                if (e.EditAction == DataGridEditAction.Commit)
+                if (e.EditAction != DataGridEditAction.Commit) return;
+
+                var newItem = e.Row.DataContext as ItemStruct;
+                if (newItem != null) newItem.SalesType = SalesEnum.Buy;
+            }
+            catch (Exception ex)
+            {
+                Informer.RaiseOnResultReceived(ex);
+                Utils.BuyCollection.AsParallel().ForAll(x => x.SalesType = SalesEnum.Buy);
+            }
+        }
+
+        private async void Rectangle_OnMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var rect = (Rectangle) sender;
+                if (rect == null) return;
+
+                for (var i = 0; i < DataGrid.Items.Count; i++)
                 {
-                    var newItem = e.Row.DataContext as ItemStruct;
-                    newItem.SalesType = SalesEnum.Buy;
+                    var row = (DataGridRow) DataGrid.ItemContainerGenerator.ContainerFromIndex(i);
+                    var rectangle = Utils.FindChild<Rectangle>(row, "rect");
+
+                    if (rectangle == null || !Equals(rectangle, rect)) continue;
+
+                    var newResult = !Utils.BuyCollection[i].Status;
+
+                    var result = newResult
+                        ? await InsertOrder.Insert(Utils.SecretKey, Utils.BuyCollection[i])
+                        : await UpdateOrder.Update(Utils.SecretKey, Utils.BuyCollection[i], 0);
+
+                    if (result)
+                        Utils.BuyCollection[i].Status = newResult;
+                    break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Utils.BuyCollection.AsParallel().ForAll(x => x.SalesType = SalesEnum.Buy);
+                Informer.RaiseOnResultReceived(ex);
             }
         }
     }

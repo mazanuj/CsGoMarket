@@ -25,19 +25,18 @@
                   RowEditEnding="DataGrid_OnAddingNewItem"
 				  Style="{DynamicResource AzureDataGrid}" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Classid_Instanceid" Binding="{Binding Classid_instanceid}"/>
-                <DataGridTextColumn Header="Максимальная цена" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>
-                <DataGridTextColumn Header="Нормальная цена" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}"/>
-                <DataGridTextColumn Header="Текущая цена" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Статус">
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Classid" Binding="{Binding Classid}"/>
+                <DataGridTextColumn Header="Instanceid" Binding="{Binding Instanceid}"/>
+                <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Current price" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Max price" Binding="{Binding Min_price, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Limit price" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>
+                <DataGridTextColumn Header="Normal price" Binding="{Binding NormCost, Converter={StaticResource IntToRublConverter}}" />
+                <DataGridTemplateColumn Header="Status" CanUserSort="True" SortMemberPath="Status">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Rectangle Width="15" Height="15" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}">
-                                <Rectangle.Fill>
-                                    <SolidColorBrush Color="{Binding Status, Converter={StaticResource BoolToColorConverter}}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
+                            <Rectangle Width="15" Height="15" d:DataContext="{d:DesignInstance dataTypes:ItemStruct}" Fill="{Binding Status, Converter={StaticResource BoolToColorConverter}}" MouseDown="Rectangle_OnMouseDown" x:Name="rect"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

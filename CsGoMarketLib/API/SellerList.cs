@@ -31,13 +31,17 @@ namespace CsGoMarketLib.API
                 {
                     try
                     {
-                        var first = Utils.SellCollection.First(y => y.Classid == x["i_classid"].ToString() && y.Instanceid == x["i_instanceid"].ToString());
+                        var first =
+                            Utils.SellCollection.First(
+                                y =>
+                                    y.Classid == x["i_classid"].ToString() &&
+                                    y.Instanceid == x["i_instanceid"].ToString());
                         first.Uid = x["ui_id"].ToString();
                         first.Name = x["i_name"].ToString();
                         first.Min_price = (int) Math.Round(100*double.Parse(x["min_price"].ToString()), 2);
                         first.Position = int.Parse(x["position"].ToString());
                         first.Status = x["ui_status"].ToString() == "1";
-                        first.CurrCost = (int)Math.Round(100 * double.Parse(x["ui_price"].ToString()), 2);
+                        first.CurrCost = (int) Math.Round(100*double.Parse(x["ui_price"].ToString()), 2);
                     }
                     catch (Exception)
                     {
