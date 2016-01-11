@@ -25,7 +25,10 @@ namespace CsGoMarketLib.API
                     var success = resp.TryGetValue("success", out token);
 
                     if (success)
+                    {
+                        Informer.RaiseOnResultReceived($"Successfully insert order {item.NormCost/100}₽ for {item.Name}");
                         return true;
+                    }
 
                     Informer.RaiseOnResultReceived(resp["error"].ToString());
                 }

@@ -26,7 +26,7 @@ namespace CsGoMarketLib.Sell
                         await SetPrice.Set(Utils.SecretKey, y.Uid, y.NormCost);
                         Informer.RaiseOnResultReceived($"Set price {(y.LimitCost)/100}₽ for {y.Name}");
 
-                        await Task.Delay(330);
+                        await Task.Delay(500);
                     }
                     else if (prices[num] <= y.LimitCost)
                     {
@@ -35,7 +35,16 @@ namespace CsGoMarketLib.Sell
                         await SetPrice.Set(Utils.SecretKey, y.Uid, y.LimitCost);
                         Informer.RaiseOnResultReceived($"Set price {(y.LimitCost)/100}₽ for {y.Name}");
 
-                        await Task.Delay(330);
+                        await Task.Delay(500);
+                    }
+                    else if (prices[num] - 1 >= (int)(y.NormCost * 1.5))
+                    {
+                        if ((int)(y.NormCost * 1.5) == y.CurrCost) continue;
+
+                        await SetPrice.Set(Utils.SecretKey, y.Uid, (int)(y.NormCost * 1.5));
+                        Informer.RaiseOnResultReceived($"Set price {(int)(y.NormCost * 1.5) / 100}₽ for {y.Name}");
+
+                        await Task.Delay(500);
                     }
                     else if (prices[num] - 1 >= y.LimitCost)
                     {
@@ -44,7 +53,7 @@ namespace CsGoMarketLib.Sell
                         await SetPrice.Set(Utils.SecretKey, y.Uid, prices[num] - 1);
                         Informer.RaiseOnResultReceived($"Set price {(prices[num] - 1)/100}₽ for {y.Name}");
 
-                        await Task.Delay(330);
+                        await Task.Delay(500);
                     }
                 }
             }

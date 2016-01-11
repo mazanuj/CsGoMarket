@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using CsGoMarketLib.API;
 using CsGoMarketLib.Buy;
 using CsGoMarketLib.DataTypes;
+using CsGoMarketLib.Sell;
 using CsGoMarketLib.Utilities;
 
 namespace CsGoMarket
@@ -39,12 +40,13 @@ namespace CsGoMarket
                 Interval = 5000
             };
 
-            //UpdateTimer.Elapsed += CaptchaTimer_Elapsed;
-            //UpdateTimer.Start();
+            UpdateTimer.Elapsed += UpdateTimer_Elapsed;
+            UpdateTimer.Start();
             DataContext = this;
             InitializeComponent();
 
-            ButtonStart.IsEnabled = true;
+            ButtonStartSell.IsEnabled = true;
+            ButtonStartBuy.IsEnabled = true;
             ButtonStop.IsEnabled = false;
         }
 
@@ -53,27 +55,25 @@ namespace CsGoMarket
             Process.Start("https://github.com/mazanuj/CsGoMarket");
         }
 
-        private async void ButtonStart_OnClick(object sender, RoutedEventArgs e)
+        private async void ButtonStartSell_OnClick(object sender, RoutedEventArgs e)
         {
             Utils.IsPermit = true;
-            ButtonStart.IsEnabled = false;
+            ButtonStartSell.IsEnabled = false;
             ButtonStop.IsEnabled = true;
 
             try
             {
                 while (Utils.IsPermit)
                 {
-                    //await SellCycle.ChangeSellItemPrice();
-                    //await SellerList.GetOffers(Utils.SecretKey);
-
-                    await BuyCycle.ChangeBuyItemPrice();
+                    await SellCycle.ChangeSellItemPrice();
+                    await SellerList.Get(Utils.SecretKey);
                 }
             }
             catch (Exception ex)
             {
                 Informer.RaiseOnResultReceived(ex);
             }
-            ButtonStart.IsEnabled = true;
+            ButtonStartSell.IsEnabled = true;
             ButtonStop.IsEnabled = false;
         }
 
@@ -89,28 +89,64 @@ namespace CsGoMarket
             Utils.IsPermit = false;
         }
 
-        private static async void CaptchaTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private async void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            UpdateTimer.Elapsed -= UpdateTimer_Elapsed;
             try
             {
-                await AutoUpdate.Update(Utils.SecretKey);
+                try
+                {
+                    await AutoUpdate.Update(Utils.SecretKey);
+                }
+                catch (Exception)
+                {
+                }
+
+                await SellerList.Get(Utils.SecretKey);
+                await BuyerList.Get(Utils.SecretKey);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Informer.RaiseOnResultReceived(ex);
             }
-            await SellerList.Get(Utils.SecretKey);
+            finally
+            {
+                UpdateTimer.Elapsed += UpdateTimer_Elapsed;
+            }
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             UpdateTimer.Stop();
-            UpdateTimer.Elapsed -= CaptchaTimer_Elapsed;
+            UpdateTimer.Elapsed -= UpdateTimer_Elapsed;
         }
 
         private async void ButtonUpdate_Click(object sender, RoutedEventArgs e)
         {
             await SellerList.Get(Utils.SecretKey);
-            await GetItemInfo.Get(Utils.SecretKey);
+            await BuyerList.Get(Utils.SecretKey);
+        }
+
+        private async void ButtonStartBuy_OnClick(object sender, RoutedEventArgs e)
+        {
+            Utils.IsPermit = true;
+            ButtonStartBuy.IsEnabled = false;
+            ButtonStop.IsEnabled = true;
+
+            try
+            {
+                while (Utils.IsPermit)
+                {
+                    await BuyCycle.ChangeBuyItemPrice();
+                    await BuyerList.Get(Utils.SecretKey);
+                }
+            }
+            catch (Exception ex)
+            {
+                Informer.RaiseOnResultReceived(ex);
+            }
+            ButtonStartBuy.IsEnabled = true;
+            ButtonStop.IsEnabled = false;
         }
     }
 }

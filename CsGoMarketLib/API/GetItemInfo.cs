@@ -29,7 +29,7 @@ namespace CsGoMarketLib.API
                         JArray offers = resp["buy_offers"];
 
                         y.Name = resp["name"].ToString();
-                        y.Min_price = int.Parse(offers.First()["o_price"].ToString());
+                        y.Min_price = int.Parse(offers?.First()["o_price"].ToString() ?? "0");
                         y.Uid = resp["hash"].ToString();
                     }
                     catch (Exception ex)

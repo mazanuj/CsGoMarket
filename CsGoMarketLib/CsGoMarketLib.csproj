@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AutoUpdate.cs" />
+    <Compile Include="API\BuyerList.cs" />
     <Compile Include="API\DownloadChart.cs" />
     <Compile Include="API\GetItemInfo.cs" />
     <Compile Include="API\GetItemPrice.cs" />
