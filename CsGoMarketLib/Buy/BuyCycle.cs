@@ -12,6 +12,13 @@ namespace CsGoMarketLib.Buy
         {
             try
             {
+                foreach (var y in Utils.BuyCollection.Where(x=>!x.Status))
+                {
+                    await InsertOrder.Insert(Utils.SecretKey, y);
+                    y.Status = true;
+                    y.IsAutoBuy = true;
+                }
+
                 foreach (var y in Utils.BuyCollection.Where(x => x.Status))
                 {
                     if (!Utils.IsPermit) return;
