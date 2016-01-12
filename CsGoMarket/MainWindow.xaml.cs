@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -145,6 +146,13 @@ namespace CsGoMarket
 
             try
             {
+                foreach (var y in Utils.BuyCollection.Where(x => !x.Status))
+                {
+                    await InsertOrder.Insert(Utils.SecretKey, y);
+                    y.Status = true;
+                    y.IsAutoBuy = true;
+                }
+
                 while (Utils.IsPermit)
                 {
                     await BuyCycle.ChangeBuyItemPrice();
