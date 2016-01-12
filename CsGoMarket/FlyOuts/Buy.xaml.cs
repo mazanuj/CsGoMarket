@@ -52,19 +52,24 @@ namespace CsGoMarket.FlyOuts
                 for (var i = 0; i < DataGrid.Items.Count; i++)
                 {
                     var row = (DataGridRow) DataGrid.ItemContainerGenerator.ContainerFromIndex(i);
-                    var rectangle = Utils.FindChild<Rectangle>(row, "rect");
+
+                    ItemStruct item;
+                    var rectangle = Utils.FindChild<Rectangle>(row, "rect", out item);
+
+                    if (string.IsNullOrEmpty(item.Uid))
+                        return;
 
                     if (rectangle == null || !Equals(rectangle, rect)) continue;
 
-                    var newResult = !Utils.BuyCollection[i].Status;
-                    Utils.BuyCollection[i].IsAutoBuy = newResult;
+                    var newResult = !item.Status;
+                    item.IsAutoBuy = newResult;
 
                     var result = newResult
-                        ? await InsertOrder.Insert(Utils.SecretKey, Utils.BuyCollection[i])
-                        : await UpdateOrder.Update(Utils.SecretKey, Utils.BuyCollection[i], 0);
+                        ? await InsertOrder.Insert(Utils.SecretKey, item)
+                        : await UpdateOrder.Update(Utils.SecretKey, item, 0);
 
                     if (result)
-                        Utils.BuyCollection[i].Status = newResult;
+                        item.Status = newResult;
                     break;
                 }
             }

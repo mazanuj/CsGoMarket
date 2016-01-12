@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using CsGoMarketLib.DataTypes;
 
@@ -21,9 +22,10 @@ namespace CsGoMarketLib.Utilities
         public static ObservableCollection<ItemStruct> SellCollection { get; set; }
         public static ObservableCollection<ItemStruct> BuyCollection { get; set; }
 
-        public static T FindChild<T>(DependencyObject parent, string childName)
+        public static T FindChild<T>(DependencyObject parent, string childName, out ItemStruct item)
             where T : DependencyObject
         {
+            item = new ItemStruct();
             // Confirm parent is valid.  
             if (parent == null) return null;
 
@@ -38,7 +40,7 @@ namespace CsGoMarketLib.Utilities
                 if (childType == null)
                 {
                     // recursively drill down the tree 
-                    foundChild = FindChild<T>(child, childName);
+                    foundChild = FindChild<T>(child, childName, out item);
 
                     // If the child is found, break so we do not overwrite the found child.  
                     if (foundChild != null) break;
@@ -49,12 +51,19 @@ namespace CsGoMarketLib.Utilities
                     // If the child's name is set for search 
                     if (frameworkElement == null || frameworkElement.Name != childName) continue;
                     // if the child's name is of the request name 
+                    var presenter = parent as ContentPresenter;
+                    if (presenter != null)
+                        item = presenter.DataContext as ItemStruct;
+
                     foundChild = (T) child;
                     break;
                 }
                 else
                 {
                     // child element found. 
+                    var presenter = parent as ContentPresenter;
+                    if (presenter != null)
+                        item = presenter.DataContext as ItemStruct;
                     foundChild = (T) child;
                     break;
                 }
