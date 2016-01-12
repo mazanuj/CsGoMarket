@@ -57,6 +57,7 @@ namespace CsGoMarket.FlyOuts
                     if (rectangle == null || !Equals(rectangle, rect)) continue;
 
                     var newResult = !Utils.BuyCollection[i].Status;
+                    Utils.BuyCollection[i].IsAutoBuy = newResult;
 
                     var result = newResult
                         ? await InsertOrder.Insert(Utils.SecretKey, Utils.BuyCollection[i])

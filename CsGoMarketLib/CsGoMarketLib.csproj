@@ -58,6 +58,7 @@
     <Compile Include="API\GetItemInfo.cs" />
     <Compile Include="API\GetItemPrice.cs" />
     <Compile Include="API\InsertOrder.cs" />
+    <Compile Include="API\RemoveAllOrders.cs" />
     <Compile Include="API\SellerList.cs" />
     <Compile Include="API\SetPrice.cs" />
     <Compile Include="API\UnicodeConverter.cs" />

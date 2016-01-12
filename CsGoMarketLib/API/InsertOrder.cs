@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
 using CsGoMarketLib.DataTypes;
@@ -26,7 +27,7 @@ namespace CsGoMarketLib.API
 
                     if (success)
                     {
-                        Informer.RaiseOnResultReceived($"Successfully insert order {item.NormCost/100}₽ for {item.Name}");
+                        //Informer.RaiseOnResultReceived($"Successfully insert order {(double) item.NormCost / 100}₽ for {item.Name}");
                         return true;
                     }
 

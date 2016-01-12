@@ -23,15 +23,31 @@ namespace CsGoMarketLib.API
                 try
                 {
                     arr = resp["Orders"];
+
+                    if (arr == null)
+                        throw new Exception();
                 }
                 catch (Exception)
                 {
                     Utils.BuyCollection.AsParallel().ForAll(x =>
                     {
-                        x.Status = false;
-                        x.CurrCost = 0;
-                        x.Position = 0;
+                        if (x.IsAutoBuy)
+                        {
+                            x.Status = true;
+                            Task.Run(async () => { await InsertOrder.Insert(Utils.SecretKey, x); }).Wait();
+                        }
+                        else
+                        {
+                            x.Status = false;
+                            x.CurrCost = 0;
+                            x.Position = 0;
+                        }
                     });
+
+                    JToken token;
+                    var jObject = resp as JObject;
+                    if (jObject != null && jObject.TryGetValue("error", out token))
+                        Informer.RaiseOnResultReceived($"{resp["error"].ToString()} in BuyerList");
 
                     return;
                 }
@@ -39,9 +55,17 @@ namespace CsGoMarketLib.API
                 Utils.BuyCollection.AsParallel().ForAll(x =>
                 {
                     if (arr.Any(y => y["i_classid"].ToString() == x.Classid)) return;
-                    x.Status = false;
-                    x.CurrCost = 0;
-                    x.Position = 0;
+                    if (x.IsAutoBuy)
+                    {
+                        x.Status = true;
+                        Task.Run(async () => { await InsertOrder.Insert(Utils.SecretKey, x); }).Wait();
+                    }
+                    else
+                    {
+                        x.Status = false;
+                        x.CurrCost = 0;
+                        x.Position = 0;
+                    }
                 });
 
                 foreach (var x in arr)

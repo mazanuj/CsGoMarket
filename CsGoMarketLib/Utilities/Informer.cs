@@ -4,8 +4,6 @@ namespace CsGoMarketLib.Utilities
 {
     public static class Informer
     {
-        public delegate void InformMethodInt(int result);
-
         public delegate void InformMethodStr(string str);
 
         public static event InformMethodStr OnResultStr;

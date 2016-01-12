@@ -73,6 +73,7 @@ namespace CsGoMarket
             {
                 Informer.RaiseOnResultReceived(ex);
             }
+
             ButtonStartSell.IsEnabled = true;
             ButtonStop.IsEnabled = false;
         }
@@ -83,15 +84,24 @@ namespace CsGoMarket
             if (textBox != null) Utils.SecretKey = textBox.Text;
         }
 
-        private void ButtonStop_OnClick(object sender, RoutedEventArgs e)
+        private async void ButtonStop_OnClick(object sender, RoutedEventArgs e)
         {
-            ButtonStop.IsEnabled = false;
-            Utils.IsPermit = false;
+            try
+            {
+                ButtonStop.IsEnabled = false;
+                Utils.IsPermit = false;
+                await RemoveAllOrders.Remove(Utils.SecretKey);
+            }
+            catch (Exception ex)
+            {
+                Informer.RaiseOnResultReceived(ex);
+            }
         }
 
         private async void UpdateTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             UpdateTimer.Elapsed -= UpdateTimer_Elapsed;
+
             try
             {
                 try

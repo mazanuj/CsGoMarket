@@ -28,7 +28,6 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Classid" Binding="{Binding Classid}"/>
                 <DataGridTextColumn Header="Instanceid" Binding="{Binding Instanceid}"/>
-                <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Current price" Binding="{Binding CurrCost, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Max price" Binding="{Binding Min_price, Converter={StaticResource IntToRublConverter}}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Limit price" Binding="{Binding LimitCost, Converter={StaticResource IntToRublConverter}}"/>

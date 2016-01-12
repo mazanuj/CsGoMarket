@@ -10,7 +10,7 @@ namespace CsGoMarket.FlyOuts
     /// </summary>
     public partial class Log
     {
-        private readonly ObservableCollection<string> ObservableCollection = new ObservableCollection<string>();
+        public readonly ObservableCollection<string> ObservableCollection = new ObservableCollection<string>();
 
         public Log()
         {
@@ -19,10 +19,18 @@ namespace CsGoMarket.FlyOuts
             DataGrid.IsSynchronizedWithCurrentItem = true;
             DataGrid.ItemsSource = ObservableCollection;
 
-            Informer.OnResultStr += result =>
+            Informer.OnResultStr += async result =>
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => ObservableCollection.Insert(0, result)))
-                    .Wait();
+                try
+                {
+                    await
+                        Application.Current.Dispatcher.BeginInvoke(
+                            new Action(() => ObservableCollection.Add(result)));
+                }
+                catch (Exception)
+                {
+
+                }
             };
         }
     }

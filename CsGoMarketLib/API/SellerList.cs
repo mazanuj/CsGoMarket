@@ -15,11 +15,26 @@ namespace CsGoMarketLib.API
             {
                 var unicodeString =
                     await new WebClient().DownloadStringTaskAsync($"https://market.csgo.com/api/Trades/?key={key}");
-                JArray resp = await UnicodeConverter.Convert(unicodeString);
+
+                var resp = await UnicodeConverter.Convert(unicodeString);
+                JArray jArray;
+                try
+                {
+                    jArray = resp;
+                }
+                catch (Exception)
+                {
+                    JToken token;
+                    var jObject = resp as JObject;
+                    if (jObject != null && jObject.TryGetValue("error", out token))
+                        Informer.RaiseOnResultReceived($"{resp["error"].ToString()} in SellerList");
+
+                    return;
+                }
 
                 Utils.SellCollection.AsParallel().ForAll(x =>
                 {
-                    if (resp.Any(y => y["i_classid"].ToString() == x.Classid)) return;
+                    if (jArray.Any(y => y["i_classid"].ToString() == x.Classid)) return;
                     x.Status = false;
                     x.CurrCost = 0;
                     x.Position = 0;
@@ -27,7 +42,7 @@ namespace CsGoMarketLib.API
                     x.Uid = "0";
                 });
 
-                foreach (var x in resp)
+                foreach (var x in jArray)
                 {
                     try
                     {

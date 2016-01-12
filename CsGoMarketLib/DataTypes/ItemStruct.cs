@@ -20,6 +20,8 @@ namespace CsGoMarketLib.DataTypes
         private int min_price;
         private int position;
 
+        public bool IsAutoBuy { get; set; }
+
         public string Uid
         {
             get { return uid; }
